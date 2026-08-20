@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroCompanion — your journey, not just your answer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="bg-stars"></canvas>
+
+  <main class="stage">
+    <div class="phone">
+      <div class="notch"></div>
+
+      <!-- ONBOARDING -->
+      <section class="screen" id="screen-onboarding">
+        <div class="brand-row"><div class="brand-mark">✦</div><div class="eyebrow">AstroCompanion</div></div>
+        <h1 class="hero-title">Your question<br>is only the beginning.</h1>
+        <p class="hero-sub">Turn one astrology consultation into a personal journey you can return to, reflect on, and share.</p>
+
+        <div class="value-strip">
+          <div><strong>01</strong><span>Personal</span></div>
+          <div><strong>02</strong><span>Daily</span></div>
+          <div><strong>03</strong><span>Shareable</span></div>
+        </div>
+
+        <form id="onboarding-form" class="form-stack">
+          <label class="field"><span>Your name</span><input type="text" id="ob-name" placeholder="Ananya" required></label>
+          <div class="field-row">
+            <label class="field"><span>Date of birth</span><input type="date" id="ob-dob" required></label>
+            <label class="field"><span>Time <em>optional</em></span><input type="time" id="ob-time"></label>
+          </div>
+          <label class="field"><span>Place of birth</span><input type="text" id="ob-place" placeholder="Hyderabad, India" required></label>
+          <label class="field"><span>What matters most right now?</span>
+            <select id="ob-focus">
+              <option value="career">Career & direction</option>
+              <option value="relationships">Relationships</option>
+              <option value="purpose">Life decisions</option>
+              <option value="family">Family & home</option>
+              <option value="wellbeing">Wellbeing</option>
+            </select>
+          </label>
+          <button type="submit" class="btn-primary">Start my journey <span>→</span></button>
+        </form>
+        <p class="trust-note">Prototype uses illustrative astrology content. No payment or sensitive data is processed.</p>
+      </section>
+
+      <!-- DAILY / JOURNEY -->
+      <section class="screen hidden" id="screen-daily">
+        <div class="topbar">
+          <div><div class="eyebrow">Your journey</div><div class="greet">Good day, <span id="daily-name">—</span></div></div>
+          <div class="streak-pill"><span>✦</span><strong id="streak-count">0</strong> day</div>
+        </div>
+
+        <div class="journey-progress">
+          <div><div><span id="journey-label">Career clarity</span><strong id="journey-day">Day 1 of 7</strong></div><div class="progress-track"><span id="journey-progress"></span></div></div>
+        </div>
+
+        <div class="card insight-card">
+          <div class="card-label">Today's nudge · <span id="insight-date">—</span></div>
+          <p id="insight-text" class="insight-text">—</p>
+          <div class="reflection-prompt">Before you go, check in with yourself.</div>
+          <div class="mood-row" id="mood-row">
+            <button class="mood-btn" data-mood="clear">◎ Clear</button>
+            <button class="mood-btn" data-mood="unsure">◌ Unsure</button>
+            <button class="mood-btn" data-mood="heavy">◍ Heavy</button>
+          </div>
+          <div class="checkin-saved hidden" id="checkin-saved">Check-in saved. Tomorrow's journey will pick up here ✦</div>
+        </div>
+
+        <div class="ai-guide-card">
+  <div class="ai-header"><span class="ai-spark">✦</span><div><div class="eyebrow">AI Journey Guide</div><strong>Let your journey adapt.</strong></div><span class="ai-badge">BETA</span></div>
+  <p id="ai-reflection">Your daily reflection will adapt to what you tell us.</p>
+  <div class="ai-question" id="ai-question">Check in above, then ask the guide to reflect with you.</div>
+  <button class="mini-btn ai-btn" id="btn-ai-reflect">Reflect with AI →</button>
+  <div class="ai-status hidden" id="ai-status"></div>
+</div>
+
+<div class="loop-card">
+          <div><span class="loop-icon">↗</span><div><strong>Make today's insight yours</strong><p>Create a private-looking card you can share publicly.</p></div></div>
+          <button class="mini-btn" id="btn-goto-share">Create card</button>
+        </div>
+
+        <div class="action-grid">
+          <button class="btn-secondary" id="btn-goto-match"><span>⌕</span> Ask & find a specialist</button>
+          <button class="btn-secondary" id="btn-goto-membership"><span>✦</span> Unlock deeper journeys</button>
+        </div>
+      </section>
+
+      <!-- SHARE -->
+      <section class="screen hidden" id="screen-share">
+        <button class="back-link" data-back="daily">← journey</button>
+        <div class="eyebrow">The growth loop</div>
+        <h2 class="section-title">Give your insight<br>somewhere to go.</h2>
+        <p class="hero-sub small">A share is not a referral coupon. It is a piece of the experience.</p>
+
+        <div class="share-card" id="share-card-render">
+          <div class="share-card-top"><span>ASTROCOMPANION</span><span>DAY <b id="share-streak">1</b></span></div>
+          <div class="share-orbit">✦</div>
+          <p class="share-card-text" id="share-card-text">—</p>
+          <div class="share-card-bottom"><span id="share-focus">PERSONAL JOURNEY</span><span id="share-card-name">—</span></div>
+        </div>
+
+        <div class="share-actions">
+          <button class="btn-primary" id="btn-copy-card">Copy share message</button>
+          <button class="btn-secondary" id="btn-share-link">Create friend link</button>
+        </div>
+        <div class="share-link-box hidden" id="share-link-box">
+          <span id="share-link-text"></span><button id="btn-copy-link" class="mini-btn">Copy</button>
+        </div>
+        <div class="copy-toast hidden" id="copy-toast">Copied ✦</div>
+
+        <div class="loop-explainer">
+          <span>01</span><p><strong>You share an insight.</strong> Your friend sees the experience, not an ad.</p>
+          <span>02</span><p><strong>They claim their own.</strong> Their journey starts from the same moment.</p>
+        </div>
+      </section>
+
+      <!-- FRIEND LANDING -->
+      <section class="screen hidden" id="screen-friend">
+        <div class="friend-brand">✦ AstroCompanion</div>
+        <div class="friend-invite"><span id="friend-sender">A friend</span> shared a moment from their journey.</div>
+        <div class="friend-quote" id="friend-card-text">“—”</div>
+        <div class="card friend-card">
+          <div class="eyebrow">Your turn</div>
+          <h2>What are you navigating right now?</h2>
+          <p>Start a 7-day personal journey and get one useful reflection each day.</p>
+          <div class="friend-topics">
+            <button class="topic-btn" data-topic="career">Career</button>
+            <button class="topic-btn" data-topic="relationships">Relationships</button>
+            <button class="topic-btn" data-topic="purpose">Life direction</button>
+            <button class="topic-btn" data-topic="family">Family</button>
+          </div>
+          <button class="btn-primary" id="btn-claim-own">Start my journey →</button>
+        </div>
+        <p class="fine-print">This is the structural growth loop: shared content opens directly into a personalized product entry point.</p>
+      </section>
+
+      <!-- MATCH -->
+      <section class="screen hidden" id="screen-match">
+        <button class="back-link" data-back="daily">← journey</button>
+        <div class="eyebrow">Smart Match · USP</div>
+        <h2 class="section-title">Don't browse astrologers.<br>Tell us what's happening.</h2>
+        <p class="hero-sub small">We translate the concern into a specialist recommendation and explain why.</p>
+
+        <div class="quick-prompts">
+          <button data-prompt="I have a job interview and I am unsure whether this career move is right for me.">Career</button>
+          <button data-prompt="My partner and I have been distant and I want clarity about our relationship.">Relationship</button>
+          <button data-prompt="I feel stuck and need help deciding which direction to take next.">Life direction</button>
+        </div>
+        <label class="field"><span>What's on your mind?</span><textarea id="match-input" rows="4" placeholder="Tell us in your own words..."></textarea></label>
+        <button class="btn-primary" id="btn-run-match">Find my specialist →</button>
+
+        <div class="match-result hidden" id="match-result">
+          <div class="match-confidence-row"><span class="eyebrow">Recommendation</span><span id="match-confidence">—</span></div>
+          <div class="card match-card">
+            <div class="match-icon">✦</div>
+            <div class="match-specialty" id="match-specialty">—</div>
+            <p class="match-reason" id="match-reason">—</p>
+            <div class="match-signals" id="match-signals"></div>
+          </div>
+          <div class="astrologer-result">
+            <div class="avatar" id="astrologer-avatar">P</div>
+            <div><strong id="astrologer-name">—</strong><span id="astrologer-tag">—</span></div>
+            <button class="mini-btn" id="btn-book-match">View profile</button>
+          </div>
+          <div class="match-cta-note" id="match-cta-note">Your consultation can become the first step of a tracked journey.</div>
+        </div>
+      </section>
+
+      <!-- MEMBERSHIP -->
+      <section class="screen hidden" id="screen-membership">
+        <button class="back-link" data-back="daily">← journey</button>
+        <div class="eyebrow">Cosmic+ · New revenue</div>
+        <h2 class="section-title">Monetize the journey,<br>not just the minute.</h2>
+        <p class="hero-sub small">Keep the daily ritual free. Charge for depth, continuity and saved personal context.</p>
+
+        <div class="revenue-funnel">
+          <div><b>FREE</b><span>Daily journey</span></div><i>→</i><div><b>DEEPEN</b><span>Personal reports</span></div><i>→</i><div><b>CONNECT</b><span>Matched expert</span></div>
+        </div>
+
+        <div class="plans" id="plans-container"></div>
+        <div class="business-note"><strong>Why this is incremental:</strong> AstroCompanion adds recurring digital value around AstroLive's existing consultation marketplace instead of replacing it.</div>
+      </section>
+
+      <nav class="tabbar hidden" id="tabbar">
+        <button data-nav="daily" class="tab-btn active">Journey</button>
+        <button data-nav="match" class="tab-btn">Smart Match</button>
+        <button data-nav="membership" class="tab-btn">Cosmic+</button>
+      </nav>
+    </div>
+
+    <p class="stage-caption">AstroCompanion · hackathon prototype · illustrative astrology content</p>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="matching.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
