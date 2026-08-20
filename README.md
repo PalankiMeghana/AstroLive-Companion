@@ -2,7 +2,17 @@
 
 > **AstroLive answers your question. AstroCompanion stays until you have the answer — and gives you something worth sharing on the way there.**
 
-A no-build-step prototype for the AstroLive product challenge.
+A working no-build-step prototype for the **AstroLive product challenge**.
+
+## Live Demo
+
+**Live Prototype:**  
+https://YOUR_USERNAME.github.io/AstroLive-Companion/
+
+**GitHub Repository:**  
+https://github.com/PalankiMeghana/AstroLive-Companion
+
+---
 
 ## Product thesis
 
@@ -16,108 +26,104 @@ The prototype deliberately demonstrates four connected levers rather than four u
 - **Structural virality:** a shareable insight generates a friend link that opens directly into a product experience.
 - **USP:** Smart Match classifies a free-text concern and explains the specialist recommendation.
 - **Revenue:** Cosmic+ monetizes depth and continuity rather than only per-minute calls.
+- **AI:** the Journey Guide adapts reflections using the user's journey context and latest check-in.
 
-## Files
+---
 
-| File | Purpose |
-|---|---|
-| `index.html` | Single-page product experience |
-| `styles.css` | Visual system and responsive UI |
-| `data.js` | Illustrative journeys, specialists and pricing |
-| `matching.js` | Real keyword-weighted Smart Match classifier |
-| `app.js` | State, local persistence, referral loop, check-ins and routing |
+# Product Experience
 
-## Run locally
+## 1. Personal Onboarding
 
-No build tools are required.
+The user starts by selecting what matters most to them.
 
-```bash
-python3 -m http.server 8000
-```
+This creates the context for the personalized journey.
 
-Then open `http://localhost:8000`.
+![AstroCompanion Onboarding](docs/screenshots/2.png)
 
-Opening `index.html` directly also works for most interactions, but a local HTTP server is recommended for testing referral URLs.
+---
 
-## Deploy
+## 2. Career Clarity — Day 1
 
-Push the folder to a public GitHub repository and enable **Settings → Pages → Deploy from branch → main / root**.
+The user enters a tracked 7-day journey with:
 
-## What is real vs illustrative?
+- journey progress
+- daily insight
+- mood check-in
+- personalized content
+- AI Journey Guide
 
-**Working in the prototype**
-- 7-day journey progression and streak persistence via `localStorage`.
-- Daily check-in state.
-- Deterministic personalized journey content based on selected focus.
-- Share message generation.
-- Shareable referral URL that opens the Friend Landing experience.
-- Smart Match scoring, confidence and explainable keyword signals.
-- Responsive navigation and membership flow.
+This creates the foundation for the **habit loop**.
 
-**Illustrative**
-- Astrology interpretations.
-- Astrologer profiles and ratings.
-- Pricing and checkout.
-- No real payment, consultation, astrology calculation or backend is connected.
+![Career Clarity Journey](docs/screenshots/3.png)
 
-## AI disclosure
+---
 
-AI assistance was used during development for product ideation, UX structure, code generation, debugging and copy refinement. The team reviewed and adapted the final implementation.
+## 3. AI Journey Guide
 
-If multiple AI tools were used, list each one explicitly in the final report and describe what it contributed.
+The AI Journey Guide is intentionally not a generic chatbot.
 
-## External-source disclosure
+It receives:
 
-The final report should cite every external source used for the AstroLive teardown, market/competitor claims, product benchmarks, and any technical or business assumptions.
+- user's journey topic
+- current journey day
+- user's concern
+- latest check-in
 
-The prototype itself uses no external API.
+and produces:
 
-## Suggested demo path
+- an adaptive reflection
+- one follow-up question
 
-1. Complete onboarding with a focus such as Career.
-2. Show the 7-day journey and check-in.
-3. Create a share card.
-4. Generate a friend link and paste/open it in a new tab.
-5. Show how the friend lands directly on the acquisition experience.
-6. Go to Smart Match and use a free-text career/relationship concern.
-7. Show the explainable specialist recommendation.
-8. Finish on Cosmic+ to show the new revenue layer.
+The purpose is to make the experience **change as the user's journey changes**.
 
-## Important
+![AI Journey Guide](docs/screenshots/5.png)
 
-All astrology content, people, ratings and pricing shown in this prototype are illustrative mock data and should not be presented as real AstroLive claims.
+---
 
+## 4. Shareable Insight
 
-## AI Journey Guide
+The user's journey generates an insight that can be turned into a shareable card.
 
-The prototype includes an optional AI Journey Guide. It is intentionally not a generic chatbot:
-the backend receives the user's topic, journey day, concern and latest check-in, then returns
-an adaptive reflection and one follow-up question.
+The goal is to make the **experience itself shareable**, rather than relying only on a referral coupon.
 
-The frontend also has a deterministic fallback, so the prototype remains usable when the
-backend or API is unavailable.
+![Shareable Insight](docs/screenshots/4.png)
 
-### Local AI backend
+---
 
-From the project root:
+## 5. Smart Match — USP
 
-```bash
-cd backend
-python -m venv .venv
-# Windows PowerShell:
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python app.py
-```
+Instead of making users browse a large marketplace and decide which specialist they need, Smart Match starts with the user's actual concern.
 
-The frontend calls `http://127.0.0.1:5000/api/journey`.
+Example:
 
-For live AI, set `OPENAI_API_KEY` in the backend environment. **Never put the key in the
-frontend or public GitHub repository.** If no key is present, the endpoint uses its
-deterministic adaptive fallback.
+> "I have a job interview and I'm unsure whether this career move is right for me."
 
-### Production architecture
+The prototype returns:
 
-For a deployed version, host the Flask API behind HTTPS and replace the local URL with the
-public API endpoint. The API key remains server-side. The same frontend contract can also be
-implemented with a serverless function.
+- recommended specialty
+- confidence score
+- detected signals
+- explainable match reasoning
+- recommended specialist
+
+![Smart Match](docs/screenshots/6.png)
+
+### Product principle
+
+> **Don't make users diagnose which astrologer they need. Let them describe what is happening and route them.**
+
+---
+
+## 6. Cosmic+ — Revenue Expansion
+
+Cosmic+ introduces a revenue layer around the user's ongoing journey rather than relying only on per-minute consultations.
+
+```text
+FREE
+Daily journey
+    ↓
+DEEPEN
+Personalized experiences
+    ↓
+CONNECT
+Priority expert access
