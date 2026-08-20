@@ -74,8 +74,7 @@ body{
   padding:28px 20px 90px 20px;
   display:flex;
   flex-direction:column;
-  overflow-y:auto;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 .phone::-webkit-scrollbar{width:0;}
 .notch{
@@ -90,11 +89,19 @@ body{
 /* ===== Screens ===== */
 .screen{
   display:flex;
+  flex:1 1 auto;
+  min-height:0;
   flex-direction:column;
   gap:16px;
   padding-top:26px;
+  padding-bottom:120px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
   animation:fadeUp .38s ease both;
 }
+.screen::-webkit-scrollbar{display:none;}
 .screen.hidden{display:none;}
 @keyframes fadeUp{
   from{opacity:0; transform:translateY(10px);}
@@ -367,6 +374,7 @@ input:focus, textarea:focus{
 /* ===== Responsive ===== */
 @media (max-width: 420px){
   .phone{height:92vh; padding:24px 16px 88px 16px;}
+  .screen{padding-bottom:116px;}
   .hero-title{font-size:29px;}
 }
 
